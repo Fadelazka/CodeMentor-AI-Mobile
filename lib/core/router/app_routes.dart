@@ -30,6 +30,9 @@ class AppRoutes {
   /// Halaman GitHub OAuth redirect.
   static const String githubAuth = '/auth/github';
 
+  /// Halaman reset password dari deep link.
+  static const String resetPassword = '/reset-password';
+
   // ===== Area setelah login =====
   /// Dashboard statistik. HANYA ADMIN (user biasa dialihkan ke [chat]).
   static const String dashboard = '/dashboard';

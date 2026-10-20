@@ -9,6 +9,7 @@ import '../../features/auth/presentation/forgot_password_screen.dart';
 import '../../features/auth/presentation/github_auth_screen.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
+import '../../features/auth/presentation/reset_password_screen.dart';
 import '../../features/auth/presentation/splash_screen.dart';
 import '../../features/chat/presentation/chat_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
@@ -72,6 +73,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         if (location == AppRoutes.login ||
             location == AppRoutes.register ||
             location == AppRoutes.forgotPassword ||
+            location == AppRoutes.resetPassword ||
             location == AppRoutes.githubAuth) {
           return null;
         }
@@ -82,6 +84,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (location == AppRoutes.login ||
           location == AppRoutes.register ||
           location == AppRoutes.forgotPassword ||
+          location == AppRoutes.resetPassword ||
           location == AppRoutes.githubAuth ||
           location == AppRoutes.splash) {
         return _homeFor(isAdmin: isAdmin);
@@ -114,6 +117,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.githubAuth,
         builder: (context, state) => const GithubAuthScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.resetPassword,
+        builder: (context, state) {
+          final token = state.uri.queryParameters['token'];
+          return ResetPasswordScreen(token: token);
+        },
       ),
 
       // ===== Area setelah login (Drawer + bottom navigation) =====
