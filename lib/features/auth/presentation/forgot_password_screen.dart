@@ -126,7 +126,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Jika email terdaftar, tautan untuk mengatur ulang kata sandi telah dikirim. Periksa console log di backend untuk mock link.',
+            'Jika email terdaftar, tautan untuk mengatur ulang kata sandi telah dikirim ke kotak masuk email Anda. Silakan periksa folder Spam jika tidak menemukannya.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
