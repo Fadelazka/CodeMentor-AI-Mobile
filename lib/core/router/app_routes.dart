@@ -33,6 +33,9 @@ class AppRoutes {
   /// Halaman reset password dari deep link.
   static const String resetPassword = '/reset-password';
 
+  /// Halaman kuis onboarding.
+  static const String onboardingQuiz = '/onboarding/quiz';
+
   // ===== Area setelah login =====
   /// Dashboard statistik. HANYA ADMIN (user biasa dialihkan ke [chat]).
   static const String dashboard = '/dashboard';

@@ -11,6 +11,7 @@ import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/auth/presentation/reset_password_screen.dart';
 import '../../features/auth/presentation/splash_screen.dart';
+import '../../features/quiz/presentation/quiz_screen.dart';
 import '../../features/chat/presentation/chat_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/history/presentation/history_detail_screen.dart';
@@ -74,23 +75,35 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             location == AppRoutes.register ||
             location == AppRoutes.forgotPassword ||
             location == AppRoutes.resetPassword ||
-            location == AppRoutes.githubAuth) {
+            location == AppRoutes.githubAuth ||
+            location == AppRoutes.onboardingQuiz) {
           return null;
         }
         return AppRoutes.login;
       }
 
-      // 3. Sudah login: halaman tamu tidak boleh dibuka lagi.
+      final quizCompleted = snapshot.session?.user.quizCompletedAt != null;
+
+      // 3. Sudah login tapi belum mengerjakan kuis -> paksa ke kuis onboarding
+      if (!quizCompleted && location != AppRoutes.onboardingQuiz) {
+        return AppRoutes.onboardingQuiz;
+      }
+
+      // 4. Sudah login: halaman tamu tidak boleh dibuka lagi.
       if (location == AppRoutes.login ||
           location == AppRoutes.register ||
           location == AppRoutes.forgotPassword ||
           location == AppRoutes.resetPassword ||
           location == AppRoutes.githubAuth ||
+          location == AppRoutes.onboardingQuiz ||
           location == AppRoutes.splash) {
-        return _homeFor(isAdmin: isAdmin);
+        if (quizCompleted) {
+          return _homeFor(isAdmin: isAdmin);
+        }
+        return AppRoutes.onboardingQuiz;
       }
 
-      // 4. Halaman khusus admin (Dashboard & Admin).
+      // 5. Halaman khusus admin (Dashboard & Admin).
       if (!isAdmin && AppRoutes.adminOnly.contains(location)) {
         return AppRoutes.chat;
       }
@@ -124,6 +137,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final token = state.uri.queryParameters['token'];
           return ResetPasswordScreen(token: token);
         },
+      ),
+      GoRoute(
+        path: AppRoutes.onboardingQuiz,
+        builder: (context, state) => const QuizScreen(),
       ),
 
       // ===== Area setelah login (Drawer + bottom navigation) =====
