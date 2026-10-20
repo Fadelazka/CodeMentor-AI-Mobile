@@ -120,8 +120,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       ..showSnackBar(SnackBar(content: Text(text)));
   }
 
-  void _clearConversation() {
-    ref.read(chatControllerProvider.notifier).clearConversation();
+  void _clearTextInputs() {
     _codeController.clear();
     _errorController.clear();
   }
@@ -174,7 +173,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           canSend: canSend,
           hasConversation: conversation.exchanges.isNotEmpty,
           onSend: _send,
-          onClear: _clearConversation,
+          onClear: _clearTextInputs,
         ),
       ],
     );
@@ -374,7 +373,7 @@ class _Composer extends StatelessWidget {
               ),
               const Spacer(),
               TextButton.icon(
-                onPressed: hasConversation && !isSending ? onClear : null,
+                onPressed: !isSending ? onClear : null,
                 style: TextButton.styleFrom(
                   foregroundColor: AppColors.textSecondary,
                   minimumSize: const Size(0, 32),
