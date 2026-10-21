@@ -95,12 +95,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           location == AppRoutes.forgotPassword ||
           location == AppRoutes.resetPassword ||
           location == AppRoutes.githubAuth ||
-          location == AppRoutes.onboardingQuiz ||
           location == AppRoutes.splash) {
         if (quizCompleted) {
           return _homeFor(isAdmin: isAdmin);
         }
         return AppRoutes.onboardingQuiz;
+      }
+
+      // Jika sudah login dan sudah selesai kuis, jangan paksa kembali ke kuis
+      if (quizCompleted && location == AppRoutes.onboardingQuiz) {
+        return _homeFor(isAdmin: isAdmin);
       }
 
       // 5. Halaman khusus admin (Dashboard & Admin).
