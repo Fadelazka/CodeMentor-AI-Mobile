@@ -54,7 +54,7 @@ class ProfileScreen extends ConsumerWidget {
 
     // Top bar + drawer disediakan `AppShell` (Fase 1).
     return ListView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppSpacing.page),
       children: [
           // ==== Kartu identitas ====
           Container(

@@ -88,6 +88,47 @@ class AppColors {
 }
 
 /// =============================================================================
+/// Token spasi — dipakai seragam di semua halaman
+/// =============================================================================
+///
+/// Nilai-nilai ini menggantikan angka padding yang ditulis manual supaya
+/// jarak konten ke tepi layar konsisten (tidak mepet) di seluruh aplikasi.
+class AppSpacing {
+  AppSpacing._();
+
+  /// Gutter horizontal halaman — jarak aman konten dari tepi layar.
+  static const double page = 20;
+
+  /// Jarak antar bagian (section) di dalam halaman.
+  static const double section = 24;
+
+  /// Jarak antar elemen di dalam satu bagian.
+  static const double item = 16;
+
+  /// Jarak kecil (label ke ikon, chip ke teks).
+  static const double tight = 10;
+}
+
+/// =============================================================================
+/// Token animasi — dipakai bersama `flutter_animate`
+/// =============================================================================
+class AppMotion {
+  AppMotion._();
+
+  /// Durasi cepat (mis. penekanan tombol, chip).
+  static const Duration fast = Duration(milliseconds: 220);
+
+  /// Durasi standar untuk transisi antar soal / kemunculan elemen.
+  static const Duration base = Duration(milliseconds: 350);
+
+  /// Durasi lambat (mis. masuk halaman penuh).
+  static const Duration slow = Duration(milliseconds: 520);
+
+  /// Kurva standar: cepat di awal, melambat halus di akhir.
+  static const Curve curve = Curves.easeOutCubic;
+}
+
+/// =============================================================================
 /// Tema global aplikasi mobile
 /// =============================================================================
 class AppTheme {
@@ -107,6 +148,28 @@ class AppTheme {
   /// Web memakai **Inter** (`next/font/google` di `src/app/layout.tsx`).
   static TextTheme interTextTheme(TextTheme base) =>
       GoogleFonts.interTextTheme(base);
+
+  /// Gaya teks sans (Inter) untuk style yang berdiri sendiri — mis. style
+  /// tombol, dialog, snackbar, atau tooltip.
+  ///
+  /// WAJIB dipakai untuk style komponen di tema: `ButtonStyle.textStyle`
+  /// (dan sejenisnya) menggantikan `DefaultTextStyle` di dalam widget, jadi
+  /// kalau family tidak ditulis eksplisit, teks tombol jatuh ke font default
+  /// sistem (Roboto) dan tidak konsisten dengan Inter di teks biasa.
+  static TextStyle inter({
+    double fontSize = 14,
+    FontWeight fontWeight = FontWeight.w400,
+    Color color = AppColors.foreground,
+    double? height,
+    double? letterSpacing,
+  }) =>
+      GoogleFonts.inter(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+        height: height,
+        letterSpacing: letterSpacing,
+      );
 
   /// Web memakai **JetBrains Mono** untuk `font-mono` (label kecil, eyebrow,
   /// kode, timestamp).
@@ -155,7 +218,7 @@ class AppTheme {
     disabledForegroundColor: AppColors.ink,
     minimumSize: const Size.fromHeight(50),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-    textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+    textStyle: inter(fontSize: 15, fontWeight: FontWeight.w600),
   );
 
   /// Tombol aksen crimson (`--destructive`/`--accent` web) — dipakai HANYA
@@ -165,7 +228,7 @@ class AppTheme {
     foregroundColor: AppColors.accentForeground,
     minimumSize: const Size.fromHeight(50),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-    textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+    textStyle: inter(fontSize: 15, fontWeight: FontWeight.w600),
   );
 
   /// Tombol aksen gradien brand (tombol kirim chat, kartu CTA dashboard).
@@ -248,7 +311,7 @@ class AppTheme {
           fontWeight: FontWeight.w600,
         ),
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         // Meniru topbar web (`--topbar-bg: rgba(5,6,10,.8)` + border bawah).
         backgroundColor: AppColors.sidebar,
         foregroundColor: AppColors.foreground,
@@ -256,11 +319,10 @@ class AppTheme {
         scrolledUnderElevation: 0,
         centerTitle: false,
         surfaceTintColor: Colors.transparent,
-        shape: Border(
+        shape: const Border(
           bottom: BorderSide(color: AppColors.borderSoft),
         ),
-        titleTextStyle: TextStyle(
-          color: AppColors.foreground,
+        titleTextStyle: inter(
           fontSize: 17,
           fontWeight: FontWeight.w700,
         ),
@@ -278,7 +340,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.background,
-        hintStyle: const TextStyle(color: AppColors.mutedForeground),
+        hintStyle: inter(fontSize: 14, color: AppColors.mutedForeground),
         prefixIconColor: AppColors.mutedForeground,
         suffixIconColor: AppColors.mutedForeground,
         contentPadding: const EdgeInsets.symmetric(
@@ -306,7 +368,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
           ),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          textStyle: inter(fontSize: 15, fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
@@ -337,12 +399,12 @@ class AppTheme {
         backgroundColor: AppColors.muted,
         selectedColor: AppColors.accent,
         side: const BorderSide(color: AppColors.border),
-        labelStyle: const TextStyle(
+        labelStyle: inter(
           fontSize: 12,
           fontWeight: FontWeight.w600,
           color: AppColors.foreground,
         ),
-        secondaryLabelStyle: const TextStyle(
+        secondaryLabelStyle: inter(
           fontSize: 12,
           fontWeight: FontWeight.w600,
           color: AppColors.accentForeground,
@@ -371,8 +433,8 @@ class AppTheme {
         elevation: 0,
         height: 64,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        labelTextStyle: const WidgetStatePropertyAll(
-          TextStyle(
+        labelTextStyle: WidgetStatePropertyAll(
+          inter(
             fontSize: 11,
             fontWeight: FontWeight.w600,
             color: AppColors.textSecondary,
@@ -400,10 +462,7 @@ class AppTheme {
       popupMenuTheme: PopupMenuThemeData(
         color: AppColors.surface2,
         surfaceTintColor: Colors.transparent,
-        textStyle: const TextStyle(
-          fontSize: 14,
-          color: AppColors.foreground,
-        ),
+        textStyle: inter(fontSize: 14, color: AppColors.foreground),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusXl),
           side: const BorderSide(color: AppColors.borderSoft),
@@ -412,12 +471,12 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: AppColors.card,
         surfaceTintColor: Colors.transparent,
-        titleTextStyle: const TextStyle(
+        titleTextStyle: inter(
           fontSize: 17,
           fontWeight: FontWeight.w700,
           color: AppColors.foreground,
         ),
-        contentTextStyle: const TextStyle(
+        contentTextStyle: inter(
           fontSize: 14,
           height: 1.5,
           color: AppColors.mutedForeground,
@@ -433,10 +492,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(radiusLg),
           border: Border.all(color: AppColors.borderSoft),
         ),
-        textStyle: const TextStyle(
-          fontSize: 12,
-          color: AppColors.foreground,
-        ),
+        textStyle: inter(fontSize: 12, color: AppColors.foreground),
       ),
       scrollbarTheme: ScrollbarThemeData(
         thickness: const WidgetStatePropertyAll(6),
@@ -447,12 +503,9 @@ class AppTheme {
               : AppColors.borderSoft,
         ),
       ),
-      snackBarTheme: const SnackBarThemeData(
+      snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.card,
-        contentTextStyle: TextStyle(
-          color: AppColors.foreground,
-          fontSize: 13,
-        ),
+        contentTextStyle: inter(fontSize: 13, color: AppColors.foreground),
         actionTextColor: AppColors.accentPink,
         behavior: SnackBarBehavior.floating,
       ),

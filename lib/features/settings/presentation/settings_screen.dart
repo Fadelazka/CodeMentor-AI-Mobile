@@ -80,7 +80,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final settings = ref.watch(appSettingsProvider);
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 18, 16, 28),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.page,
+        18,
+        AppSpacing.page,
+        28,
+      ),
       children: [
         // ==== Kepala halaman ====
         Text('// PENGATURAN', style: AppTheme.monoEyebrow),

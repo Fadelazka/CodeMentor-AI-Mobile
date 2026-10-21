@@ -63,7 +63,7 @@ class _KnowledgeScreenState extends ConsumerState<KnowledgeScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.page),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

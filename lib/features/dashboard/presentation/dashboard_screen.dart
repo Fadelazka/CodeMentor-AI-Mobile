@@ -40,7 +40,12 @@ class DashboardScreen extends ConsumerWidget {
         },
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(16, 20, 16, 28),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.page,
+            20,
+            AppSpacing.page,
+            28,
+          ),
           children: [
             _Header(firstName: firstName, isAdmin: isAdmin),
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/api_constants.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -80,7 +81,15 @@ class ChatUserBubble extends StatelessWidget {
           ],
         ],
       ),
-    );
+    )
+        .animate()
+        .fadeIn(duration: AppMotion.base, curve: AppMotion.curve)
+        .slideY(
+          begin: 0.08,
+          end: 0,
+          duration: AppMotion.base,
+          curve: AppMotion.curve,
+        );
   }
 }
 
@@ -259,7 +268,15 @@ class ChatAssistantBubble extends StatelessWidget {
           ),
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(duration: AppMotion.base, curve: AppMotion.curve)
+        .scale(
+          begin: const Offset(0.96, 0.96),
+          end: const Offset(1, 1),
+          duration: AppMotion.base,
+          curve: AppMotion.curve,
+        );
   }
 }
 

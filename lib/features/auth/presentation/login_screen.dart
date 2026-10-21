@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -91,8 +92,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           child: Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 28,
+                horizontal: AppSpacing.page,
+                vertical: AppSpacing.section,
               ),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 440),
@@ -118,7 +119,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Center(child: AppLogo(size: 40, showText: true)),
+            const Center(child: AppLogo(size: 40, showText: true))
+                .animate()
+                .fadeIn(duration: AppMotion.base, curve: AppMotion.curve)
+                .scale(
+                  begin: const Offset(0.92, 0.92),
+                  duration: AppMotion.base,
+                  curve: AppMotion.curve,
+                ),
             const SizedBox(height: 22),
             const Text(
               'Selamat Datang Kembali',
@@ -295,7 +303,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ],
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(duration: AppMotion.base, curve: AppMotion.curve)
+        .slideY(
+          begin: 0.12,
+          end: 0,
+          duration: AppMotion.base,
+          curve: AppMotion.curve,
+        );
   }
 }
 

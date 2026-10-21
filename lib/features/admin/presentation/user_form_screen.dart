@@ -100,7 +100,12 @@ class _UserFormScreenState extends ConsumerState<UserFormScreen> {
         title: Text(_isEdit ? 'Edit User' : 'Tambah User'),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 28),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.page,
+          16,
+          AppSpacing.page,
+          28,
+        ),
         children: [
           const Text(
             'Isi detail akun pengguna CodeMentor AI.',
@@ -186,7 +191,12 @@ class _UserFormScreenState extends ConsumerState<UserFormScreen> {
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 10, 16, 14),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.page,
+            10,
+            AppSpacing.page,
+            14,
+          ),
           child: Row(
             children: [
               Expanded(

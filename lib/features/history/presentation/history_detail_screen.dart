@@ -121,7 +121,12 @@ class _LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 18, 16, 28),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.page,
+        18,
+        AppSpacing.page,
+        28,
+      ),
       children: const [
         _PageHeader(
           title: 'Memuat...',
@@ -140,7 +145,12 @@ class _NotFoundView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 18, 16, 28),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.page,
+        18,
+        AppSpacing.page,
+        28,
+      ),
       children: [
         const _PageHeader(
           title: 'Riwayat Tidak Ditemukan',
@@ -170,7 +180,12 @@ class _LoadErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 18, 16, 28),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.page,
+        18,
+        AppSpacing.page,
+        28,
+      ),
       children: [
         const _PageHeader(
           title: 'Gagal Memuat Riwayat',
@@ -235,7 +250,12 @@ class _DetailView extends ConsumerWidget {
     final isCorrect = isCodeCorrectResponse(item.aiResponse);
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 18, 16, 28),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.page,
+        18,
+        AppSpacing.page,
+        28,
+      ),
       children: [
         _PageHeader(
           title: 'Detail Analisis',

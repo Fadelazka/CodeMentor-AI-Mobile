@@ -190,7 +190,12 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       },
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 18, 16, 28),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.page,
+          18,
+          AppSpacing.page,
+          28,
+        ),
         children: [
           const _Header(),
           const SizedBox(height: 16),

@@ -45,7 +45,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Padding(
-          padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
+          padding: EdgeInsets.fromLTRB(AppSpacing.page, 20, AppSpacing.page, 0),
           child: _Header(),
         ),
         const SizedBox(height: 16),
@@ -209,7 +209,12 @@ class _StatsTab extends ConsumerWidget {
       },
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.page,
+          0,
+          AppSpacing.page,
+          28,
+        ),
         children: [
           // Urutan cabang sama dengan layar Dashboard (lihat catatan di
           // `dashboard_screen.dart`): error tanpa data -> panel error,
@@ -617,7 +622,12 @@ class _UsersTabState extends ConsumerState<_UsersTab> {
       },
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.page,
+          0,
+          AppSpacing.page,
+          28,
+        ),
         children: [
           // ==== Panel judul + pencarian + tombol Tambah ====
           Container(
@@ -976,7 +986,12 @@ class _KnowledgeBaseTabState extends ConsumerState<_KnowledgeBaseTab> {
       },
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.page,
+          0,
+          AppSpacing.page,
+          28,
+        ),
         children: [
           // ==== Panel judul + pencarian + tombol Tambah ====
           Container(

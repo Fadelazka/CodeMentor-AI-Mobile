@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -103,7 +104,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 28),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.page,
+                vertical: AppSpacing.section,
+              ),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 440),
                 child: _buildCard(),
@@ -129,7 +133,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Center(child: AppLogo()),
+            const Center(child: AppLogo())
+                .animate()
+                .fadeIn(duration: AppMotion.base, curve: AppMotion.curve)
+                .scale(
+                  begin: const Offset(0.92, 0.92),
+                  duration: AppMotion.base,
+                  curve: AppMotion.curve,
+                ),
             const SizedBox(height: 18),
             Text(
               'Buat Akun Baru',
@@ -236,7 +247,15 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           ],
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(duration: AppMotion.base, curve: AppMotion.curve)
+        .slideY(
+          begin: 0.12,
+          end: 0,
+          duration: AppMotion.base,
+          curve: AppMotion.curve,
+        );
   }
 }
 

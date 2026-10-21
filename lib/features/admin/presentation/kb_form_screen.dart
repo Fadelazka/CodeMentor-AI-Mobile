@@ -130,7 +130,12 @@ class _KbFormScreenState extends ConsumerState<KbFormScreen> {
         title: Text(_isEdit ? 'Edit Rekaman Error' : 'Tambah Rekaman Error'),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 28),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.page,
+          16,
+          AppSpacing.page,
+          28,
+        ),
         children: [
           const Text(
             'Isi detail rekaman knowledge base yang ingin disimpan.',
@@ -277,7 +282,12 @@ class _KbFormScreenState extends ConsumerState<KbFormScreen> {
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 10, 16, 14),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.page,
+            10,
+            AppSpacing.page,
+            14,
+          ),
           child: Row(
             children: [
               Expanded(

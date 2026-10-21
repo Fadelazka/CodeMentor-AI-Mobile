@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -184,7 +185,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
           child: SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.page,
+                  vertical: AppSpacing.section,
+                ),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 500),
                   child: Container(
@@ -280,7 +284,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.page,
+                  vertical: AppSpacing.tight,
+                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -298,79 +305,124 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: LinearProgressIndicator(
-                  value: (_currentQuestion + 1) / 7,
-                  backgroundColor: AppColors.muted,
-                  color: AppColors.accent,
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.page),
+                // Progress bar ikut bergerak halus saat soal berganti.
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween<double>(begin: 0, end: (_currentQuestion + 1) / 7),
+                  duration: AppMotion.base,
+                  curve: AppMotion.curve,
+                  builder: (context, value, _) => LinearProgressIndicator(
+                    value: value,
+                    backgroundColor: AppColors.muted,
+                    color: AppColors.accent,
+                  ),
                 ),
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        question['question'],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.foreground,
-                          height: 1.6,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.page,
+                    vertical: AppSpacing.section,
+                  ),
+                  // Transisi antar soal: slide dari kanan + fade.
+                  child: AnimatedSwitcher(
+                    duration: AppMotion.base,
+                    switchInCurve: AppMotion.curve,
+                    switchOutCurve: Curves.easeInCubic,
+                    transitionBuilder: (child, animation) {
+                      final slide = Tween<Offset>(
+                        begin: const Offset(0.12, 0),
+                        end: Offset.zero,
+                      ).animate(animation);
+                      return FadeTransition(
+                        opacity: animation,
+                        child: SlideTransition(
+                          position: slide,
+                          child: child,
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                      ...List.generate(4, (index) {
-                        final isSelected = _answers[_currentQuestion] == index;
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: InkWell(
-                            onTap: () => _selectAnswer(index),
-                            child: Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: isSelected ? AppColors.accent.withValues(alpha: 0.1) : AppColors.card,
-                                border: Border.all(
-                                  color: isSelected ? AppColors.accent : AppColors.border,
-                                ),
-                                borderRadius: BorderRadius.circular(AppTheme.radius),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 24,
-                                    height: 24,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: isSelected ? AppColors.accent : AppColors.mutedForeground,
-                                      ),
-                                      color: isSelected ? AppColors.accent : Colors.transparent,
-                                    ),
-                                    child: isSelected
-                                        ? const Icon(Icons.check, size: 16, color: Colors.white)
-                                        : null,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Text(
-                                      question['options'][index],
-                                      style: TextStyle(color: AppColors.foreground),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                      );
+                    },
+                    child: Column(
+                      key: ValueKey(_currentQuestion),
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          question['question'],
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.foreground,
+                            height: 1.6,
                           ),
-                        );
-                      }),
-                    ],
+                        ),
+                        const SizedBox(height: AppSpacing.section),
+                        ...List.generate(4, (index) {
+                          final isSelected = _answers[_currentQuestion] == index;
+                          return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: InkWell(
+                                  onTap: () => _selectAnswer(index),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(AppSpacing.item),
+                                    decoration: BoxDecoration(
+                                      color: isSelected ? AppColors.accent.withValues(alpha: 0.1) : AppColors.card,
+                                      border: Border.all(
+                                        color: isSelected ? AppColors.accent : AppColors.border,
+                                      ),
+                                      borderRadius: BorderRadius.circular(AppTheme.radius),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 24,
+                                          height: 24,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                              color: isSelected ? AppColors.accent : AppColors.mutedForeground,
+                                            ),
+                                            color: isSelected ? AppColors.accent : Colors.transparent,
+                                          ),
+                                          child: isSelected
+                                              ? const Icon(Icons.check, size: 16, color: Colors.white)
+                                              : null,
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Text(
+                                            question['options'][index],
+                                            style: TextStyle(color: AppColors.foreground),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .animate()
+                              .fadeIn(
+                                duration: AppMotion.fast,
+                                delay: Duration(milliseconds: 70 * index),
+                                curve: AppMotion.curve,
+                              )
+                              .slideY(
+                                begin: 0.06,
+                                end: 0,
+                                duration: AppMotion.fast,
+                                delay: Duration(milliseconds: 70 * index),
+                                curve: AppMotion.curve,
+                              );
+                        }),
+                      ],
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.page,
+                  vertical: AppSpacing.tight,
+                ),
                 child: Row(
                   children: [
                     if (_currentQuestion > 0)

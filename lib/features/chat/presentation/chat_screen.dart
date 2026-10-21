@@ -148,10 +148,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               ? const _EmptyChatView()
               : ListView.builder(
                   controller: _listController,
-                  padding: const EdgeInsets.fromLTRB(16, 18, 16, 12),
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.page,
+                    18,
+                    AppSpacing.page,
+                    12,
+                  ),
                   itemCount: conversation.exchanges.length,
                   itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: AppSpacing.item),
                     child: _ExchangeView(
                       exchange: conversation.exchanges[index],
                       onFeedback: _handleFeedback,
@@ -225,7 +230,12 @@ class _EmptyChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.page,
+        40,
+        AppSpacing.page,
+        AppSpacing.section,
+      ),
       child: Column(
         children: [
           Container(
