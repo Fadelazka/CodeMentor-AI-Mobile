@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/router/app_routes.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/app_logo.dart';
 import '../../../core/widgets/code_meteors_background.dart';
 import '../../auth/data/auth_repository.dart';
+import '../../auth/data/auth_snapshot.dart';
 import '../data/quiz_repository.dart';
 import 'quiz_result_screen.dart';
 
