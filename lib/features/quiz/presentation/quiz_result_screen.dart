@@ -20,9 +20,9 @@ class QuizResultScreen extends ConsumerWidget {
 
   String get _preferenceLabel {
     switch (preference) {
-      case 'detailed':
-        return 'Singkat';
       case 'brief':
+        return 'Singkat';
+      case 'detailed':
         return 'Detail';
       default:
         return 'Sedang';
@@ -31,10 +31,10 @@ class QuizResultScreen extends ConsumerWidget {
 
   String get _preferenceDesc {
     switch (preference) {
-      case 'detailed':
-        return 'Berdasarkan hasil kuis, AI akan memberikan jawaban yang lebih singkat dan langsung ke inti solusi untukmu.';
       case 'brief':
-        return 'Berdasarkan hasil kuis, AI akan memberikan jawaban yang lebih detail dengan penjelasan dan contoh terkait untukmu.';
+        return 'Berdasarkan hasil kuis, AI akan memberikan jawaban yang lebih singkat dan langsung ke inti solusi untukmu.';
+      case 'detailed':
+        return 'Berdasarkan hasil kuis, AI akan memberikan jawaban yang lebih detail dengan penjelasan, konsep, dan contoh terkait untukmu.';
       default:
         return 'Berdasarkan hasil kuis, AI akan memberikan jawaban yang seimbang sesuai kebutuhan belajarmu.';
     }
